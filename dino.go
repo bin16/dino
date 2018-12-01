@@ -21,7 +21,11 @@ func main() {
 }
 
 func appEntryFunc(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("<p><a href=\"/rand/\">Dino is here</a></p>"))
+	maxAge := int(7 * 24 * 60 * 60)
+	cacheControl := fmt.Sprint("public; max-age=", int(maxAge))
+	w.Header().Set("Cache-Control", cacheControl)
+	w.Header().Set("Content-Type", "text/html")
+	http.ServeFile(w, r, filepath.Join(config.workDir, "index.html"))
 }
 
 func dinoEntryFunc(w http.ResponseWriter, r *http.Request) {

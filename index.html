@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" value="nofollow">
+    <meta name="description" value="A simple dino machine to generate random pixel dinosaurs.">
+    <link rel="icon" href="/rand/" type="image/png" />
+    <title>Dino Machine - dino.lol</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .box {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: lightblue;
+        }
+
+        .dino-machine {
+            position: relative;
+            width: 320px;
+            max-width: 100vw;
+        }
+
+        .dino-machine img {
+            display: block;
+            width: 100%;
+            height: auto;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .dino-machine::before {
+            content: '';
+            position: absolute;
+            width: 6.25%;
+            height: 3.125%;
+            background: red;
+            left: 64%;
+            top: 60%;
+            box-shadow: 1px 1px 4px 0 #333;
+            border-radius: 2px;
+        }
+
+        .dino-machine:hover::before {
+            margin-top: 2px;
+        }
+
+        .dino-machine:active::before {
+            margin-top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="dino-machine">
+            <img class="machine" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIABAMAAAAGVsnJAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAACFQTFRFAAAAAAAA/87O7RwklRUczAkS/8kO////iAAV7+SwAAAAOAsPzwAAAAt0Uk5TAP///////////5nZp7m4AAADd0lEQVR4nO3c0U3rMACGUVbwCqzACqzACqxwV2CFuwJT3ka3loxx0oS6sY3P90JVhTT/eYoC6tOTJEmSJEmSJEmSJEmSJEnSRuHkWu/9FgAAAAAAADApwHJBz9deri3vbf28t64QAAAAAAAAgEkB4qB0/BkA3SAAAAAAAAAAAAAAAAAAAAAAAE4NAAAAAFrvBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgBoCzEOLnAAAAAEDr/QAAAPh6I/R8QhECAAAAAFrvBwAAQL0vRDgaAAAAALTeDwAAgLa13g8AAAAAAAAACOH10lvllnMu535fCQAAAABa7wcAAMD/4kX/udFRBAAAAAAAAADAGAD3jr0F8HENAAAAAAAAANAvQGnEkUoA6fD4GgAAAABa7wcAAMA2QBxwpBQBAAAAAAAAADAOwFtWLYA4vPsHIgAAAAAAAACAbwD5H01+AlA6rvV+AAAAAAAAAMA+gHjsTwA+sgAAAAAAAAAA8wDEhn4gAgAAAAAAAEwMcO8DkXQ8AAAAAAAAAGAcgCOVAIZ/IAIAAAAAAAD8coBStQDWjmu9HwAAAAAAAADwFWDvgCMAQ90IAQAAAAAAAJMCxAuO7+UAYUc55hZU6/0AAAAAAAAAgH0Ay+u/hfLRawDpTRAAAAAAAAAAoF+AeIHvSSEpB1hDiOdIhw/xQAQAAAAAAACYHCAvDgcAAAAAAAAA/E6ALYR8eApQGp8DDPEPEgAAAAAAAMDkAPHCc4gSwNb4LUwAAAAAAAAAQL8AOcRaW+MBAAAAAAAAAGMDxBF73rsFED8LAAAAAAAAADAWQH7Mnt8DAAAAAAAAAIwPcE8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgH4BQqUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0D1EDIzwUAAAAAAAAAGAegZgAAAAAAAACA/gFeL9Uev5wzHZwHAAAAAK33AwAAIISXS+GBAQAAAAAAAAD6BYgIjwgAAAAAAAAA0C/A56WjNzY1a70fAAAAAAAAmB2ghPD5gEqf0Xo/AAAAAAAAAKBdrfcDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICpAJamHr8EAAAAAAAATAwgSZIkSZIkSZIkSZIkSZIkSZLUW/8AxHVmp9huBk0AAAAASUVORK5CYII=" alt="dino-machine.png" />
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.dino-machine').addEventListener('click', function() {
+                document.location.href = '/rand/' 
+            })
+        })
+    </script>
+</body>
+</html>
