@@ -1,6 +1,7 @@
 package dino
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/png"
@@ -9,6 +10,8 @@ import (
 	"path/filepath"
 	"strconv"
 	"time"
+
+	"github.com/bin16/dino/colors"
 )
 
 var (
@@ -33,22 +36,39 @@ type Dino struct {
 	tpl image.Image
 	img image.Image
 	// colors
+	pal         colors.DinoPalette
+	palIndex    []int
 	colors      [3]color.Color
 	colorsIndex [3]int
 	whiteIndex  int
 	blackIndex  int
+	// tag
+	tag string
 }
 
 func NewDino(tplPath string) (Dino, error) {
+
+	dino := Dino{
+		tplPath: tplPath,
+		scale:   1,
+		colors:  dinoDefault,
+		tag:     "",
+	}
+
+	err := dino.UseTpl(tplPath)
+	return dino, err
+}
+
+func (dino *Dino) UseTpl(tplPath string) error {
 	tplFile, err := os.Open(tplPath)
 	if err != nil {
-		return Dino{}, err
+		return err
 	}
 	defer tplFile.Close()
 
 	tplImg, err := png.Decode(tplFile)
 	if err != nil {
-		return Dino{}, err
+		return err
 	}
 
 	pal := tplImg.ColorModel().(color.Palette)
@@ -58,16 +78,21 @@ func NewDino(tplPath string) (Dino, error) {
 		pal.Index(dinoTplPal[2]),
 	}
 
-	return Dino{
-		tplPath:     tplPath,
-		scale:       1,
-		tpl:         tplImg,
-		img:         tplImg,
-		colors:      dinoDefault,
-		colorsIndex: colorsIndex,
-		whiteIndex:  pal.Index(color.RGBA{255, 255, 255, 255}),
-		blackIndex:  pal.Index(color.RGBA{0, 0, 0, 255}),
-	}, nil
+	dino.tpl = tplImg
+	dino.img = tplImg
+	dino.whiteIndex = pal.Index(color.RGBA{255, 255, 255, 255})
+	dino.blackIndex = pal.Index(color.RGBA{0, 0, 0, 255})
+	dino.colorsIndex = colorsIndex
+
+	return nil
+}
+
+func (dino *Dino) UseTag(tag string) {
+	dino.tag = tag
+	tplPath := dino.tplPath
+	specialTplPath := tplPath[0:4] + "-" + tag + tplPath[4:]
+	fmt.Println(specialTplPath)
+	dino.UseTpl(specialTplPath)
 }
 
 func (dino *Dino) SetWorkDir(dir string) {
@@ -114,7 +139,11 @@ func (dino Dino) Export() error {
 }
 
 func (dino Dino) AutoExport() (string, error) {
-	filename := dino.ColorsToString() + ".png"
+	filename := dino.ColorsToString()
+	if dino.tag != "" {
+		filename += "-" + dino.tag
+	}
+	filename += ".png"
 	targetPath := filepath.Join(dino.workDir, filename)
 
 	return targetPath, dino.ExportAs(targetPath)

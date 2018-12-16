@@ -1,13 +1,18 @@
 package main
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"flag"
 	"fmt"
 	"log"
 	"net/http"
+	"path"
 	"path/filepath"
 	"strconv"
+	"time"
 
+	"github.com/bin16/dino/colors"
 	"github.com/bin16/dino/dino"
 )
 
@@ -16,7 +21,9 @@ var config = parseArgs()
 func main() {
 	http.HandleFunc("/", appEntryFunc)
 	http.HandleFunc("/dino/", dinoImageFunc)
-	http.HandleFunc("/rand/", dinoEntryFunc)
+	http.HandleFunc("/img2/", dinoImageV2Func)
+	http.HandleFunc("/rand/", dinoEntryV2Func)
+	http.HandleFunc("/rand/v1/", dinoEntryFunc)
 	http.ListenAndServe(":"+strconv.Itoa(config.port), nil)
 }
 
@@ -40,6 +47,7 @@ func dinoEntryFunc(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 
+	dd.UseTag("xmas")
 	dd.UseRandomColors()
 	dd.Draw()
 	dd.SetWorkDir(config.workDir)
@@ -52,6 +60,58 @@ func dinoEntryFunc(w http.ResponseWriter, r *http.Request) {
 	filename := filepath.Base(targetPath)
 	url := "/dino/" + filename[5:5+20]
 	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+}
+
+func dinoEntryV2Func(w http.ResponseWriter, r *http.Request) {
+	log.Println(r.Method, r.RequestURI, r.RemoteAddr, r.UserAgent())
+
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+	}
+
+	query := r.URL.Query()
+	q := query.Get("q")
+	if len(q) == 0 {
+		t := time.Now()
+		q = strconv.Itoa(int(t.Unix()))
+	}
+
+	h := sha256.New()
+	h.Write([]byte(q))
+	keys := h.Sum(nil)
+	pal := colors.MakePal(keys)
+
+	hashed := hex.EncodeToString(keys)
+	filename := hashed + ".png"
+	targetPath := path.Join(config.workDir, filename)
+
+	dino := colors.NewPixel(config.tplPath, "")
+	dino.SetPalette(pal)
+	dino.LoadTplImg()
+	dino.ExportAs(targetPath)
+
+	url := "/img2/" + filename
+	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+}
+
+/*
+	/img/fullpath
+*/
+func dinoImageV2Func(w http.ResponseWriter, r *http.Request) {
+	log.Println(r.Method, r.RequestURI, r.RemoteAddr, r.UserAgent())
+
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+	}
+
+	filename := r.RequestURI[6:]
+	fullpath := filepath.Join(config.workDir, filename)
+
+	maxAge := int(365 * 100 * 24 * 60 * 60)
+	cacheControl := fmt.Sprint("public; max-age=", int(maxAge))
+	w.Header().Set("Cache-Control", cacheControl)
+	w.Header().Set("Content-Type", "image/png")
+	http.ServeFile(w, r, fullpath)
 }
 
 func dinoImageFunc(w http.ResponseWriter, r *http.Request) {
