@@ -86,6 +86,7 @@ func dinoEntryV2Func(w http.ResponseWriter, r *http.Request) {
 	targetPath := path.Join(config.workDir, filename)
 
 	dino := colors.NewPixel(config.tplPath, "")
+	dino.SetTag("xmas")
 	dino.SetPalette(pal)
 	dino.LoadTplImg()
 	dino.ExportAs(targetPath)

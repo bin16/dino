@@ -27,7 +27,7 @@ type PixelPaint struct {
 
 func (pix PixelPaint) tplPath() string {
 	if len(pix.tag) > 0 {
-		return path.Join(pix.tplDir, pix.tpl+"-"+pix.tag)
+		return path.Join(pix.tplDir, pix.tag+"-"+pix.tpl)
 	}
 
 	return path.Join(pix.tplDir, pix.tpl)
