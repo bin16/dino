@@ -2,7 +2,6 @@ package colors
 
 import (
 	"image/color"
-	"log"
 )
 
 var primes = []int{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359}
@@ -20,11 +19,6 @@ func MakePal(keys []byte) pixPalette {
 	c0 := selectHSV(t)
 	h, s, v := c0.HSVasInt()
 	dur := t % 180
-
-	log.Println("Keys", keys)
-	log.Println("T", t)
-	log.Println("DSP", dur)
-	log.Println("Color 0", c0)
 
 	if dur >= 150 {
 		return mk150p(h, s, v, t)
@@ -135,8 +129,6 @@ func mk90p(h, s, v, t int) pixPalette {
 	cS := NewHSV(sh, ss, sv)
 	cB := NewHSV(bh, bs, bv)
 	cBg := NewHSV(gh, gs, gv)
-
-	log.Println("90p", cP, cS, cB, cBg)
 
 	return pixPalette{
 		p:  cP.toRGBA(),
