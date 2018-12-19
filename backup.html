@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #box {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .cell {
+        flex: 1;
+        width: 256px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <canvas id="stat-primary" width="1440" height="1600"></canvas> -->
+    <div id="box"></div>
+    <!-- <script src="md5.min.js"></script> -->
+    <script>
+      window.ki = 0;
+      window.ss = `
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis mauris nibh. Etiam scelerisque, ligula quis tincidunt dictum, mauris nisi hendrerit magna, ac egestas tellus lacus nec nibh. Fusce luctus mauris quis ipsum gravida fringilla. In at risus at purus condimentum rutrum consequat non orci. Integer mollis felis a lacus pellentesque gravida. Etiam dictum, sem vitae bibendum imperdiet, dolor nisi feugiat est, at facilisis magna nisl nec metus. Duis egestas vestibulum elit, volutpat bibendum lorem convallis nec. Vivamus molestie a magna sed commodo. Donec luctus tempus lorem, nec finibus quam imperdiet vel. Fusce non iaculis sem, id placerat est. Integer tincidunt interdum risus, et hendrerit lorem pharetra vitae. Integer ullamcorper consectetur nisl, quis mattis massa pharetra vestibulum. Aliquam eget erat nec odio molestie volutpat in vel mauris. Nunc sollicitudin efficitur lacus, eu consectetur tortor interdum a. Proin mattis, mi vel suscipit pellentesque, velit justo tempor velit, a varius orci enim tempus lorem. Sed pretium nunc vel libero aliquam mollis.
+      
+      Aenean efficitur venenatis ultricies. Nulla facilisi. Proin gravida sem odio, vel interdum dolor fringilla fermentum. Phasellus non odio scelerisque, gravida libero nec, faucibus justo. Maecenas tincidunt commodo bibendum. Vestibulum volutpat dui id accumsan pharetra. Morbi pharetra mi at vehicula sollicitudin. Aliquam eu dignissim ante. Aenean malesuada venenatis turpis, id feugiat nibh pretium in. Fusce ac ultricies nisi, sed commodo orci. Maecenas sit amet justo sit amet justo pretium sodales. Nulla facilisi. Maecenas tincidunt nunc et dui facilisis dapibus.
+      
+      Suspendisse gravida, magna non tincidunt lobortis, urna mi aliquam enim, vitae tempus turpis leo vel est. Pellentesque justo leo, elementum vitae felis vel, efficitur volutpat justo. Nam et felis ornare, cursus risus sed, eleifend risus. Vivamus vel est id nulla ultricies venenatis a sit amet magna. Ut ultricies erat leo. Nunc elit mauris, volutpat quis magna a, pretium ornare metus. Sed non nunc imperdiet, volutpat turpis et, mollis justo.
+      
+      Vestibulum enim ante, facilisis at rutrum blandit, fringilla vitae ex. Nam iaculis nisi vel nisi accumsan mollis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent tincidunt enim mollis ex posuere, pretium rutrum nisi auctor. Maecenas ullamcorper pellentesque tortor non bibendum. Cras at tempus neque. Curabitur venenatis consectetur mauris. Phasellus eget rutrum purus. Integer suscipit venenatis facilisis. Maecenas sagittis nulla eu eros consectetur, a mollis purus eleifend.
+      
+      Vivamus ac lacus vel erat bibendum hendrerit. Aenean lacus elit, luctus molestie luctus vel, dapibus quis nisi. Sed non nunc posuere, molestie elit et, egestas velit. Maecenas efficitur ligula ut enim varius, et tempor urna maximus. Donec sit amet dolor in mi aliquet efficitur. Curabitur rhoncus erat in commodo interdum. Aenean tristique gravida ultricies. Nulla facilisi. Praesent pretium lorem id eleifend luctus. Phasellus molestie, mi ac posuere luctus, diam metus viverra felis, non sollicitudin enim ligula nec erat.
+      
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta orci nisl, id tempus nunc fermentum eget. Proin quis iaculis ante, vel pharetra arcu. Integer et neque sagittis, facilisis elit tempor, suscipit dui. Aliquam vehicula tortor vitae elit efficitur consequat. Proin rutrum eget mi nec scelerisque. Praesent leo nibh, commodo nec elit finibus, consequat interdum libero. Donec non justo justo. Curabitur eleifend, purus id fringilla varius, enim massa maximus turpis, sed lacinia ante mauris vitae dolor. Donec luctus convallis tellus sit amet pellentesque. Sed tincidunt maximus nulla, eget pellentesque justo maximus ut. Duis eget nibh sit amet sem vulputate rhoncus non ac massa. Curabitur finibus condimentum nisi, semper egestas augue gravida in. Aliquam ac volutpat diam. Etiam ac lectus nec risus hendrerit egestas a at enim. Integer blandit malesuada vestibulum.
+      
+      Vestibulum ullamcorper bibendum odio at posuere. Suspendisse vel dignissim turpis. Nulla lacinia ultrices orci, volutpat bibendum sem facilisis non. In eleifend gravida ex, sit amet posuere libero interdum sed. Fusce elit ex, maximus bibendum tellus at, vehicula condimentum sapien. Pellentesque arcu diam, iaculis quis ornare egestas, porta non arcu. Nam finibus ligula eget neque facilisis, mollis interdum ex auctor. Cras aliquet auctor pellentesque. Duis mattis elit vel ultrices pretium. Cras et risus augue. Sed scelerisque orci in ligula aliquam varius. Aenean tristique malesuada posuere. Sed efficitur justo lacus, eu congue est vestibulum vel. Suspendisse malesuada pulvinar lectus, nec dignissim nunc faucibus a.
+      
+      Phasellus bibendum molestie rutrum. Nullam suscipit orci ut tempus pulvinar. In hac habitasse platea dictumst. Ut eget dui est. Vivamus et semper arcu. Duis at mollis orci, quis consequat enim. Quisque tincidunt nisl sit amet augue venenatis, vel condimentum eros lacinia. Nam rhoncus sagittis risus, vitae condimentum enim semper et. Mauris feugiat placerat velit nec commodo. Sed quis augue egestas enim viverra pulvinar. Vestibulum tellus dui, lacinia ut congue id, cursus nec metus. Maecenas quam lacus, pulvinar ut lorem a, ultricies convallis nulla. Quisque volutpat augue sit amet nisl tincidunt, vel sodales libero accumsan.
+      
+      Proin arcu nibh, eleifend nec vestibulum et, semper in metus. Sed at volutpat magna, suscipit convallis massa. Fusce viverra mauris id lectus malesuada blandit. Curabitur quis magna a diam vestibulum convallis ac ut elit. Vivamus mauris arcu, bibendum vel tortor quis, egestas volutpat arcu. Nulla venenatis vehicula turpis, ac rhoncus purus. Vivamus sit amet ante rutrum, pretium quam at, elementum tortor. Sed egestas, diam a egestas sodales, lectus dolor congue turpis, vitae efficitur dui eros sed ante. Praesent pellentesque odio nec felis ultricies, eget laoreet elit venenatis. Integer convallis sem a vehicula scelerisque. Nunc rutrum orci et elit hendrerit, nec volutpat eros aliquam.
+      
+      Vestibulum eleifend libero lorem, eget porta diam iaculis et. Nam ut purus ultricies, lobortis turpis fringilla, consequat enim. Duis mi ante, lacinia vitae sollicitudin sagittis, mollis in nibh. Etiam eu feugiat diam, vitae venenatis nibh. Ut tempor nisi ac tempus scelerisque. Sed quam magna, sagittis vitae egestas at, auctor ut nisi. Vestibulum quis feugiat tellus. Cras in urna a leo volutpat egestas efficitur at nunc. In interdum orci dolor, elementum pharetra erat iaculis ac. Vestibulum quis arcu quis sem mattis molestie. Donec id rutrum erat. Nunc convallis orci nec fermentum efficitur. Praesent commodo quam eget bibendum consequat. Nunc ut molestie neque. Aenean molestie, augue non hendrerit euismod, metus lorem placerat est, quis maximus est ex et dui. Vivamus eu porttitor neque.
+      `;
+
+      function draw(keys = mkKeys()) {
+        const w = 24;
+        const h = 24;
+        const u = 32;
+        const canvas = document.createElement("canvas");
+        canvas.classList.add("cell");
+        canvas.width = w * u;
+        canvas.height = h * u;
+        document.querySelector("#box").appendChild(canvas);
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        const ctx = canvas.getContext("2d");
+        const pc = mkPrimaryColor(keys);
+        const bd = mkBorderColor(...pc);
+        const bg = mkBackgroundColor(...bd);
+        const sc = mkSecondaryColor(keys, pc);
+        ctx.fillStyle = hsl(...bg);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.lineWidth = u / 2;
+        ctx.fillStyle = hsl(...pc);
+        ctx.strokeStyle = hsl(...bd);
+        ctx.arc(cx, cy, cx * 0.6, 0, Math.PI * 2, false);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.fillStyle = hsl(...sc);
+        ctx.lineWidth = u / 2;
+        ctx.moveTo(cx - cx * 0.6, cy);
+        ctx.lineTo(cx + cx * 0.6, cy);
+        ctx.arc(cx, cy, cx * 0.6, 0, Math.PI, false);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.lineWidth = u;
+        ctx.fillStyle = "#ffffff";
+        ctx.arc(cx, cy, 32, 0, Math.PI * 2, false);
+
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = hsl(...bd);
+        ctx.arc(cx, cy, 16, 0, Math.PI * 2, false);
+        ctx.fill();
+
+        // ctx.fillStyle = '#ffffff'
+        // ctx.fillRect(cx - 32, cy - 32, 64, 64)
+        // ctx.fillStyle = hsl(...bd)
+        // ctx.fillRect(cx - 16, cy - 16, 32, 32)
+      }
+
+      const mkKeys = () => {
+        // const seed = btoa(Math.random() * performance.now() * 233 + "dino.lol").toLowerCase().replace(/[^\w]/g, '')
+        //   .slice(0, 32)
+        //   .toLowerCase();
+        // const seed = md5(btoa(Math.random() * performance.now()))
+        // const keys = new Uint8Array(seed.length + 4);
+        // keys.set(seed.split("").map(one => one.charCodeAt(0)).concat([100, 105, 110, 111]));
+
+        const arr = [];
+        // for (let i =0; i<32;i++) {
+        //   arr.push(parseInt(Math.random() * 256))
+        // }
+
+        const str = window.ss.slice(window.ki, window.ki + 32);
+        window.ki += 32;
+        for (let i = 0; i < 32; i++) {
+          arr.push(str.charCodeAt(i));
+        }
+        console.log(arr);
+
+        return arr;
+      };
+
+      const mkPrimaryColor = keys => {
+        const total = keys.reduce((a, b, ix) => a + Math.pow(b, ix), 0);
+        const h = total % 353 + total % 421 + total % 41
+        const s = total % 23 + total % 29 + total % 31 + 7
+        const l = total % 59 + total % 23 + 17
+        return [h, s, l];
+      };
+
+      const mkSecondaryColor = (keys, pc) => {
+        const total = keys.reduce((a, b, ix) => a + a * b, 1);
+        const flag = total % 179
+        const [h0, s0, l0] = pc
+        let h, s, l
+        h = h0 + flag
+        if (flag < 30) {
+
+        } else if (flag < 60) {
+
+        } else if (flag < 90) {
+
+        } else if (flag > 150) {
+
+        }
+
+        return [h, s, l]
+      };
+
+      // const mkSecondaryColor = (h, s, l) => {
+      //   l = l > 50 ? l : l + 50;
+      //   s = l > 50 && s > 50 ? s - 50 : s;
+      //   h = h + ((h * s * l) % 30);
+      //   // return [h, s, l]
+      //   return [0, 100, 100];
+      // };
+
+      const mkBorderColor = (h, s, l) => {
+        h = h - 15 - (h % 15);
+        l = l < 25 ? 0 : Math.abs(l - 50);
+        s = Math.floor(s / 2);
+        return [h, s, l];
+      };
+
+      const mkBackgroundColor = (h, s, l) => {
+        h = s > 75 ? h + ((h * l * s) % 150) : h;
+        l = 100 - (l % 50) - (l % 9);
+        s = s < 15 && l < 50 ? s + 25 : s;
+        return [h, s, l];
+        // return [128, 0, 90]
+      };
+
+      const hsl = (h, s, l) => `hsl(${h}, ${s}%, ${l}%)`;
+
+      for (let i = 0; i < 120; i++) {
+        // const p = mkPrimaryColor(mkKeys())
+        // const pi = p[1]
+        // const count = window.stat.get(pi) || 0
+        // window.stat.set(pi, +count + 1)
+        draw();
+      }
+
+      // const cChart = document.querySelector('#stat-primary')
+      // const cHeight = 320 * 3
+      // cChart.height = cHeight
+      // const cc = cChart.getContext('2d')
+      // cc.fillStyle = '#c00'
+      // window.stat.forEach((count, key) => {
+      //   cc.fillRect(4 * key, 0, 4, count * 4)
+      // })
+
+
+      
+    </script>
+  </body>
+</html>

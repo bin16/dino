@@ -238,8 +238,8 @@ func mk0p(h, s, v, t int) pixPalette {
 
 func selectHSV(t int) HSV {
 	h := t%359 + 1
-	s := t%61 + 13
-	v := t%71 + 29
+	s := t%53 + 23
+	v := t%59 + 21
 
 	return NewHSV(h, s, v)
 }
