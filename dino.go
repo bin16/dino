@@ -92,6 +92,7 @@ func dinoEntryV2Func(w http.ResponseWriter, r *http.Request) {
 	dino.ExportAs(targetPath)
 
 	url := "/img2/" + filename
+	url += "?q=" + q
 	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
 }
 
@@ -105,7 +106,7 @@ func dinoImageV2Func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
 
-	filename := r.RequestURI[6:]
+	filename := r.URL.Path[6:]
 	fullpath := filepath.Join(config.workDir, filename)
 
 	maxAge := int(365 * 100 * 24 * 60 * 60)
